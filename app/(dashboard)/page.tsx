@@ -1,12 +1,13 @@
-"use client";
-import Image from "next/image";
+import React from "react";
 import { ThemeProvider } from "@/components/context/themeProvider";
-export default function Home() {
+function Dashboard() {
   return (
-    <ThemeProvider>
+    <>
       <main className="flex min-h-screen flex-col items-center justify-between p-24">
         hi
       </main>
-    </ThemeProvider>
+    </>
   );
 }
+
+export default Dashboard;

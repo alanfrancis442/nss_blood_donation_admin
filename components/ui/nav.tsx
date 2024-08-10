@@ -4,6 +4,7 @@ import { ThemeProvider } from "../context/themeProvider";
 import { Moon, Sun } from "lucide-react";
 import { useTheme } from "next-themes";
 import { Button } from "./button";
+import { Separator } from "./separator";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -46,7 +47,7 @@ function Nav() {
       enableSystem
       disableTransitionOnChange
     >
-      <nav className="flex items-center justify-between p-5 w-full border-b">
+      <nav className="flex items-center justify-between p-5 w-full">
         <div className="flex items-center space-x-4">
           <a href="/" className="text-lg font-bold">
             Rudiram Admin Panel
@@ -56,6 +57,7 @@ function Nav() {
           <ModeToggle />
         </div>
       </nav>
+      <Separator orientation="horizontal" />
     </ThemeProvider>
   );
 }

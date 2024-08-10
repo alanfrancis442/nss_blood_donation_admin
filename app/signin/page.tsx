@@ -35,17 +35,18 @@ function Signin() {
     },
   });
   return (
-    <div className="flex flex-col items-center h-screen">
-      <Nav />
-      <ThemeProvider
-        attribute="class"
-        defaultTheme="system"
-        enableSystem
-        disableTransitionOnChange
-      >
+    <ThemeProvider
+      attribute="class"
+      defaultTheme="system"
+      enableSystem
+      disableTransitionOnChange
+    >
+      <div className="flex flex-col items-center h-screen">
+        <Nav />
         <div className="flex justify-center items-center h-screen w-full">
           <Form {...form}>
-            <form className="space-y-8 border p-8 rounded-sm min-w-[25%]">
+            <form className="space-y-8 border p-8 rounded-sm md:min-w-[25%]">
+              <div className="text-2xl font-bold underline">Admin Login</div>
               <FormField
                 control={form.control}
                 name="username"
@@ -80,8 +81,8 @@ function Signin() {
             </form>
           </Form>
         </div>
-      </ThemeProvider>
-    </div>
+      </div>
+    </ThemeProvider>
   );
 }
 
