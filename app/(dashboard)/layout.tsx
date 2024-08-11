@@ -10,17 +10,21 @@ export default function DashboardLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const [width, setwidth] = useState(window.innerWidth);
+  const [width, setWidth] = useState(0);
+
   useEffect(() => {
-    window.addEventListener("resize", () => {
-      setwidth(window.innerWidth);
-    });
+    const handleResize = () => {
+      setWidth(window.innerWidth);
+    };
+
+    handleResize(); // Set initial width
+    window.addEventListener("resize", handleResize);
+
     return () => {
-      window.removeEventListener("resize", () => {
-        setwidth(window.innerWidth);
-      });
+      window.removeEventListener("resize", handleResize);
     };
   }, []);
+
   return (
     <ThemeProvider
       attribute="class"
