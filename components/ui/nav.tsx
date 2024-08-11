@@ -40,7 +40,7 @@ function ModeToggle() {
 }
 
 function Nav() {
-  const [width, setwidth] = useState(window.innerWidth);
+  const [width, setwidth] = useState(0);
   useEffect(() => {
     window.addEventListener("resize", () => {
       setwidth(window.innerWidth);

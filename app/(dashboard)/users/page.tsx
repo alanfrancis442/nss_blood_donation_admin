@@ -13,6 +13,7 @@ import { supabase } from "@/utils/supabase/client";
 
 function Dashboard() {
   const [AllUSERS, setAllUSERS] = useState<UserProps[]>([]);
+  //@ts-ignore
   const [loading, setLoading] = useState(true);
   const get_all_req = async () => {
     let { data: users, error } = await supabase.from("users").select("*");
@@ -23,7 +24,7 @@ function Dashboard() {
       if (!users) {
         console.warn("No users found in the database.");
       } else {
-        console.log("Fetched users:", users);
+        // console.log("Fetched users:", users);
         setAllUSERS(users);
       }
       setLoading(false);
@@ -38,17 +39,8 @@ function Dashboard() {
     // console.log("AllUSERS state updated:", AllUSERS);
   }, [AllUSERS]);
   const invoices = [AllUSERS];
-  console.log("invoicei", invoices);
+  // console.log("invoicei", invoices);
   const usersArray = invoices[0];
-
-  // Map through the usersArray
-  usersArray.map((user: UserProps) => {
-    console.log("User ID:", user.id);
-    console.log("User Name:", user.name);
-    console.log("User Email:", user.email);
-    console.log("User Phone:", user.phone);
-    // Add more fields as needed
-  });
 
   return (
     <>

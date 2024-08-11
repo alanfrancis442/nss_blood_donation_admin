@@ -25,7 +25,7 @@ function Dashboard() {
       if (!certificate_table) {
         console.warn("No certificate_table found in the database.");
       } else {
-        console.log("Fetched certificate_table:", certificate_table);
+        // console.log("Fetched certificate_table:", certificate_table);
         setAllUSERS(certificate_table);
       }
       setLoading(false);
@@ -40,18 +40,7 @@ function Dashboard() {
   //     // console.log("AllUSERS state updated:", AllUSERS);
   //   }, [AllUSERS]);
   const invoices = [AllUSERS];
-  console.log("invoicei", invoices);
   const usersArray = invoices[0];
-
-  // Map through the usersArray
-  // usersArray.map((user: CampProps) => {
-  //   console.log("User ID:", user.id);
-  //   console.log("User Name:", user.name);
-  //   console.log("User Email:", user.email);
-  //   console.log("User Phone:", user.phone);
-  //   // Add more fields as needed
-  // });
-
   return (
     <>
       <div className="flex min-h-screen size-full flex-col items-center justify-between grow">

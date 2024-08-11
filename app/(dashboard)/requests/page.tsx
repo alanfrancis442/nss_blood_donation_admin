@@ -25,7 +25,7 @@ function Dashboard() {
       if (!blood_requests) {
         console.warn("No blood_requests found in the database.");
       } else {
-        console.log("Fetched blood_requests:", blood_requests);
+        // console.log("Fetched blood_requests:", blood_requests);
         setAllUSERS(blood_requests);
       }
       setLoading(false);
@@ -40,15 +40,10 @@ function Dashboard() {
   //     // console.log("AllUSERS state updated:", AllUSERS);
   //   }, [AllUSERS]);
   const invoices = [AllUSERS];
-  console.log("invoicei", invoices);
   const usersArray = invoices[0];
 
   // Map through the usersArray
   usersArray.map((user: RequestProps) => {
-    console.log("User ID:", user.id);
-    console.log("User Name:", user.name);
-    console.log("User Email:", user.email);
-    console.log("User Phone:", user.phone);
     // Add more fields as needed
   });
 

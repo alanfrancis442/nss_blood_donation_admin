@@ -8,7 +8,7 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
-import React from "react";
+import React, { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -19,8 +19,8 @@ import { ThemeProvider } from "@/components/context/themeProvider";
 import { useRouter } from "next/navigation";
 
 const formSchema = z.object({
-  username: z.string().min(2, {
-    message: "Enter a valid username",
+  email: z.string().min(2, {
+    message: "Enter a valid email",
   }),
   password: z.string().min(6, {
     message: "Password must be at least 6 characters long",
@@ -32,28 +32,54 @@ import { supabase } from "@/utils/supabase/client";
 
 function Signin() {
   const router = useRouter();
+  const form = useForm<z.infer<typeof formSchema>>({
+    resolver: zodResolver(formSchema),
+    defaultValues: {
+      email: "",
+      password: "",
+    },
+  });
+
+  const fetchUser = async () => {
+    const {
+      data: { user },
+    } = await supabase.auth.getUser();
+    //   console.log(user.email);
+    if (user) {
+      return user;
+    } else {
+      return null;
+    }
+  };
+
   const handelLogin = async (e: any) => {
     e.preventDefault();
-    // console.log(e.target.email.value);
+    const { email, password } = form.getValues();
+    console.log(email, password);
     let { data, error } = await supabase.auth.signInWithPassword({
-      email: e.target.email.value,
-      password: e.target.password.value,
+      email: email,
+      password: password,
     });
     if (error) {
       console.log("Login faild:", error.message);
       // toast.error(error.message);
     } else {
-      console.log("User login successfully:", data);
+      // console.log("User login successfully:", data);
       router.replace("/users");
     }
   };
-  const form = useForm<z.infer<typeof formSchema>>({
-    resolver: zodResolver(formSchema),
-    defaultValues: {
-      username: "",
-      password: "",
-    },
-  });
+
+  useEffect(() => {
+    fetchUser().then((user) => {
+      // console.log("user", user);
+      if (user) {
+        router.replace("/users");
+      } else {
+        console.log("No user found");
+      }
+    });
+  }, [router]);
+
   return (
     <ThemeProvider
       attribute="class"
@@ -65,16 +91,19 @@ function Signin() {
         <Nav />
         <div className="flex justify-center items-center h-screen w-full">
           <Form {...form}>
-            <form className="space-y-8 border p-8 rounded-sm md:min-w-[25%]">
+            <form
+              onSubmit={handelLogin}
+              className="space-y-8 border p-8 rounded-sm md:min-w-[25%]"
+            >
               <div className="text-2xl font-bold underline">Admin Login</div>
               <FormField
                 control={form.control}
-                name="username"
+                name="email"
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel>Username</FormLabel>
                     <FormControl>
-                      <Input placeholder="username" {...field} />
+                      <Input placeholder="email" {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
