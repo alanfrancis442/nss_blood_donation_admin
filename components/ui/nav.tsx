@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { ThemeProvider } from "../context/themeProvider";
 import { Moon, Sun } from "lucide-react";
 import { useTheme } from "next-themes";
@@ -11,10 +11,10 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "./dropdown-menu";
+import MobileSidebar from "./mobile-sidebar";
 
 function ModeToggle() {
   const { setTheme } = useTheme();
-
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
@@ -40,6 +40,18 @@ function ModeToggle() {
 }
 
 function Nav() {
+  const [width, setwidth] = useState(window.innerWidth);
+  useEffect(() => {
+    window.addEventListener("resize", () => {
+      setwidth(window.innerWidth);
+    });
+
+    return () => {
+      window.removeEventListener("resize", () => {
+        setwidth(window.innerWidth);
+      });
+    };
+  }, []);
   return (
     <ThemeProvider
       attribute="class"
@@ -49,9 +61,8 @@ function Nav() {
     >
       <nav className="flex items-center justify-between p-5 w-full">
         <div className="flex items-center space-x-4">
-          <a href="/" className="text-lg font-bold">
-            Rudiram Admin Panel
-          </a>
+          <p className="font-bold">Rudiram Admin Panel</p>
+          {width < 768 && <MobileSidebar />}
         </div>
         <div className="flex items-center space-x-4">
           <ModeToggle />

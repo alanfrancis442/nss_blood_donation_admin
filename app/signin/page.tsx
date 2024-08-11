@@ -26,6 +26,9 @@ const formSchema = z.object({
   }),
 });
 
+//handel supabase
+import { supabase } from "@/utils/supabase/client";
+
 function Signin() {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
