@@ -11,8 +11,6 @@ import { Button } from "./button";
 import { Separator } from "./separator";
 
 function Sidebar() {
-  const options = ["users", "requests", "products"];
-
   return (
     <div className="h-screen p-4 border-r">
       <Card className="h-full">
@@ -21,11 +19,15 @@ function Sidebar() {
           <Separator />
         </CardHeader>
         <CardContent>
-          {options.map((option) => (
-            <Button key={option} className="w-full my-2">
-              {option}
-            </Button>
-          ))}
+          <a href="/users">
+            <Button className="w-full my-2">USERS</Button>
+          </a>
+          <a href="/requests">
+            <Button className="w-full my-2">BLOOD REQUESTS</Button>
+          </a>
+          <a href="/bloodcamp">
+            <Button className="w-full my-2">BLOOD CAMP</Button>
+          </a>
         </CardContent>
       </Card>
     </div>

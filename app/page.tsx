@@ -16,6 +16,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import Nav from "@/components/ui/nav";
 import { ThemeProvider } from "@/components/context/themeProvider";
+import { useRouter } from "next/navigation";
 
 const formSchema = z.object({
   username: z.string().min(2, {
@@ -30,6 +31,22 @@ const formSchema = z.object({
 import { supabase } from "@/utils/supabase/client";
 
 function Signin() {
+  const router = useRouter();
+  const handelLogin = async (e: any) => {
+    e.preventDefault();
+    // console.log(e.target.email.value);
+    let { data, error } = await supabase.auth.signInWithPassword({
+      email: e.target.email.value,
+      password: e.target.password.value,
+    });
+    if (error) {
+      console.log("Login faild:", error.message);
+      // toast.error(error.message);
+    } else {
+      console.log("User login successfully:", data);
+      router.replace("/users");
+    }
+  };
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {

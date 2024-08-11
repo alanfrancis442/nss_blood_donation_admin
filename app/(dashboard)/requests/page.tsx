@@ -12,7 +12,7 @@ import {
 import { supabase } from "@/utils/supabase/client";
 
 function Dashboard() {
-  const [AllUSERS, setAllUSERS] = useState<UserProps[]>([]);
+  const [AllUSERS, setAllUSERS] = useState<RequestProps[]>([]);
   const [loading, setLoading] = useState(true);
   const get_all_req = async () => {
     let { data: blood_requests, error } = await supabase
@@ -44,7 +44,7 @@ function Dashboard() {
   const usersArray = invoices[0];
 
   // Map through the usersArray
-  usersArray.map((user: UserProps) => {
+  usersArray.map((user: RequestProps) => {
     console.log("User ID:", user.id);
     console.log("User Name:", user.name);
     console.log("User Email:", user.email);
@@ -60,27 +60,31 @@ function Dashboard() {
           <TableHeader>
             <TableRow>
               <TableHead className="">NAME</TableHead>
-              <TableHead>EMAIL</TableHead>
-              <TableHead>PHONE</TableHead>
+              <TableHead>BLOOD GROUP</TableHead>
+              <TableHead>AGE</TableHead>
               <TableHead>GENDER</TableHead>
-              <TableHead>DOB</TableHead>
-              <TableHead>BLOOD_GRP</TableHead>
-              <TableHead className="text-right">WEIGHT</TableHead>
+              <TableHead>UNITS</TableHead>
+              <TableHead>HOSPITAL</TableHead>
+              <TableHead>BY-STANDER</TableHead>
+              <TableHead>PHONE</TableHead>
+              <TableHead className="text-right">SEND TO</TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>
-            {usersArray.map((user: UserProps) => (
+            {usersArray.map((user: RequestProps) => (
               <TableRow key={user.id}>
                 <TableCell className="font-medium">{user.name}</TableCell>
-                <TableCell className="font-medium">{user.email}</TableCell>
-                <TableCell>{user.phone}</TableCell>
-                <TableCell>{user.gender}</TableCell>
-                <TableCell>{user.dob}</TableCell>
-                <TableCell className="text-[#f53838]">
-                  {user.blood_grp}
+                <TableCell className="font-medium text-[#e63535]">
+                  {user.blood_group}
                 </TableCell>
+                <TableCell>{user.age}</TableCell>
+                <TableCell>{user.gender}</TableCell>
+                <TableCell>{user.units}</TableCell>
+                <TableCell>{user.hospital_name}</TableCell>
+                <TableCell>{user.bystander}</TableCell>
+                <TableCell>{user.phone}</TableCell>
 
-                <TableCell className="text-right">{user.weight}</TableCell>
+                <TableCell className="text-right">{user.send_to}</TableCell>
               </TableRow>
             ))}
           </TableBody>
