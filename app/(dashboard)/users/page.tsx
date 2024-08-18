@@ -46,9 +46,9 @@ function Dashboard() {
     <>
       <div className="flex min-h-screen size-full flex-col items-center justify-between grow">
         <Table className="w-full">
-          <TableCaption>A list of your recent invoices.</TableCaption>
           <TableHeader>
             <TableRow>
+              <TableHead className="">#</TableHead>
               <TableHead className="">NAME</TableHead>
               <TableHead>EMAIL</TableHead>
               <TableHead>PHONE</TableHead>
@@ -59,8 +59,9 @@ function Dashboard() {
             </TableRow>
           </TableHeader>
           <TableBody>
-            {usersArray.map((user: UserProps) => (
-              <TableRow key={user.id}>
+            {usersArray.map((user: UserProps, i) => (
+              <TableRow key={i}>
+                <TableCell className="font-medium">{i + 1}</TableCell>
                 <TableCell className="font-medium">{user.name}</TableCell>
                 <TableCell className="font-medium">{user.email}</TableCell>
                 <TableCell>{user.phone}</TableCell>
